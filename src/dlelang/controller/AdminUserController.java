@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dlelang.controller;
 
 import dlelang.implement.BarangImplement;
+import dlelang.implement.UserImplement;
 import dlelang.model.Barang;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import dlelang.model.User;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -35,13 +26,18 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
-/**
- *
- * @author Ultrabook
- */
-public class AdminBarangController implements Initializable {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+/**
+ * Created by Ultrabook on 3/16/2017.
+ */
+public class AdminUserController implements Initializable {
     Stage stage;
+    UserImplement crudUser = new UserImplement();
     @FXML
     public AnchorPane anchorPane;
     @FXML
@@ -51,31 +47,31 @@ public class AdminBarangController implements Initializable {
     @FXML
     public Button btnTambah;
     @FXML
-    public TableView<Barang> tableBarang;
+    public TableView<User> tableUser;
     @FXML
-    public TableColumn<Barang, String> columnNo, columnNama;
+    public TableColumn<User, String> columnNo, columnUsername;
     @FXML
-    public TableColumn<Barang, Boolean> columnAksi;
+    public TableColumn<User, Boolean> columnAksi;
 
-    BarangImplement crudBarang = new BarangImplement();
-    ObservableList<Barang> dataBarang;
+    ObservableList<User> dataUser;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        columnNo.setCellValueFactory(new PropertyValueFactory<Barang, String>("no"));
-        columnNama.setCellValueFactory(new PropertyValueFactory<Barang, String>("namaBarang"));
-        columnAksi.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Barang, Boolean>, ObservableValue<Boolean>>() {
+        columnNo.setCellValueFactory(new PropertyValueFactory<User, String>("no"));
+        columnUsername.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
+        columnAksi.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, Boolean>, ObservableValue<Boolean>>() {
             @Override
-            public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Barang, Boolean> p) {
+            public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<User, Boolean> p) {
                 return new SimpleBooleanProperty(p.getValue() != null);
             }
         });
-        columnAksi.setCellFactory(new Callback<TableColumn<Barang, Boolean>, TableCell<Barang, Boolean>>() {
+        columnAksi.setCellFactory(new Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>>() {
             @Override
-            public TableCell<Barang, Boolean> call(TableColumn<Barang, Boolean> param) {
-                return new TableBarangCell(tableBarang);
+            public TableCell<User, Boolean> call(TableColumn<User, Boolean> param) {
+                return new TableUserCell(tableUser);
             }
         });
+
         menuHome.setOnAction(this::handleMenuHome);
         menuBarang.setOnAction(this::handleMenuBarang);
         menuUser.setOnAction(this::handleMenuUser);
@@ -83,7 +79,6 @@ public class AdminBarangController implements Initializable {
 
         showData();
     }
-
     private void handleMenuHome(Event actionEvent) {
         stage = (Stage) this.anchorPane.getScene().getWindow();
         changeScene(this.stage, "/dlelang/layout/AdminHome.fxml");
@@ -115,25 +110,6 @@ public class AdminBarangController implements Initializable {
         stage.show();
     }
 
-
-    private void handleButtonEdit(Event actionEvent){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dlelang/layout/AdminUpdateBarang.fxml"));
-        stage = new Stage();
-        stage.initStyle(StageStyle.UNDECORATED);
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println(root);
-        AdminEditBarangController controller = loader.<AdminEditBarangController>getController();
-        controller.setIdBarang(1);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
     private void changeScene(Stage stage, String url) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
         Parent root;
@@ -144,47 +120,38 @@ public class AdminBarangController implements Initializable {
             Logger.getLogger(AdminBarangController.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-
-    public void showData() {
-        dataBarang = crudBarang.get();
-        System.out.println(dataBarang.size());
-        tableBarang.setItems(dataBarang);
-        tableBarang.getSelectionModel().clearSelection();
+    private void showData(){
+        dataUser = crudUser.get();
+        System.out.println(dataUser.size());
+        tableUser.setItems(dataUser);
+        tableUser.getSelectionModel().clearSelection();
     }
 
-    private class TableBarangCell extends TableCell<Barang, Boolean> {
+    //Cell dengan tombol
+    private class TableUserCell extends TableCell<User, Boolean> {
         Stage stage;
         HBox hBox;
         final Button deleteButton = new Button("Delete");
         final Button editButton = new Button("Edit");
-        final Button detailButton = new Button("Detail");
 
-        public TableBarangCell(TableView table) {
+        public TableUserCell(TableView table) {
 
             hBox = new HBox();
 
-            detailButton.getStyleClass().add("btn");
-            detailButton.getStyleClass().add("btn-primary");
-
             deleteButton.getStyleClass().add("btn");
             deleteButton.getStyleClass().add("btn-errors");
-            hBox.getChildren().addAll(detailButton, deleteButton, editButton);
+            hBox.getChildren().addAll(editButton, deleteButton);
 
-            detailButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent t) {
-                    System.out.println("jasdasdsakdhaskdjhkjsahdk");
-                }
-            });
+
             editButton.setOnAction(new EventHandler<ActionEvent>() {
 
-                BarangImplement crudBarang = new BarangImplement();
+                UserImplement crudUser = new UserImplement();
 
                 @Override
                 public void handle(ActionEvent event) {
                     // Get Selected Item
-                    Barang currentBarang =(Barang) TableBarangCell.this.getTableView().getItems().get(TableBarangCell.this.getIndex());
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/dlelang/layout/AdminEditBarang.fxml"));
+                    User currentUser =(User) AdminUserController.TableUserCell.this.getTableView().getItems().get(AdminUserController.TableUserCell.this.getIndex());
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/dlelang/layout/AdminEditUser.fxml"));
                     stage = new Stage();
                     stage.initStyle(StageStyle.UNDECORATED);
                     Parent root = null;
@@ -193,9 +160,9 @@ public class AdminBarangController implements Initializable {
                     } catch (IOException e) {
                         System.out.println(e.getMessage());
                     }
-                    AdminEditBarangController controller = loader.getController();
-                    controller.setNamaBarang(currentBarang.getNamaBarang());
-                    controller.setDeskripsi(currentBarang.getDeskripsi());
+//                    AdminEditUserController controller = loader.getController();
+                    //controller.setNamaBarang(currentBarang.getNamaBarang());
+                    //controller.setDeskripsi(currentBarang.getDeskripsi());
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
@@ -212,5 +179,6 @@ public class AdminBarangController implements Initializable {
             }
         }
     }
+
 
 }

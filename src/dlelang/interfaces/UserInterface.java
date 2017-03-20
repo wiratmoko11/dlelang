@@ -7,6 +7,8 @@ package dlelang.interfaces;
 
 import dlelang.model.User;
 
+import java.util.List;
+
 /**
  *
  * @author Ultrabook
@@ -16,4 +18,6 @@ public interface UserInterface {
     void insertUser(User user);
     void updateUser(User user);
     void deleteUser(String username);
+    List<User> get();
+
 }
