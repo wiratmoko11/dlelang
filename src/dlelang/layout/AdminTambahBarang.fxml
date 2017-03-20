@@ -95,7 +95,7 @@
                         </HBox>
                         <VBox alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="226.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
-                              <Button mnemonicParsing="false" text="Pilih Gambar ..." />
+                              <Button fx:id="btnUpload" mnemonicParsing="false" text="Pilih Gambar ..." />
                            </children>
                         </VBox>
                      </children>

@@ -28,7 +28,7 @@ public class DatabaseConnection {
     public Connection connect() {
         try {
             // db parameters
-            String url = "jdbc:sqlite:src/dlelang/db/dlelang.sqlite";
+            String url = "jdbc:sqlite:dlelang.sqlite";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite has been established.");

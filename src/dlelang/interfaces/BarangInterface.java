@@ -17,5 +17,6 @@ public interface BarangInterface {
     void insertBarang(Barang barang);
     void updateBarang(Barang barang, int id);
     void deleteBarang(int id);
+    Barang getBarangById(int id);
     List<Barang> get();
 }

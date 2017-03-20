@@ -64,7 +64,7 @@ public class AdminHomeController implements Initializable {
         try {
             Stage stage = (Stage) this.anchorPane.getScene().getWindow();
             
-            if(url.equals("/dlelang/layout/AdminBarang.fxml")){
+            if(url.equals("/dlelang/layout/AdminUser.fxml")){
                 AdminBarangController adminController = (AdminBarangController) loader.getController();
                 loader.setController(adminController);
             }else{
