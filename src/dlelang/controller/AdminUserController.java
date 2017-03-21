@@ -140,8 +140,11 @@ public class AdminUserController implements Initializable {
 
             deleteButton.getStyleClass().add("btn");
             deleteButton.getStyleClass().add("btn-errors");
-            hBox.getChildren().addAll(editButton, deleteButton);
 
+            editButton.getStyleClass().add("btn");
+            editButton.getStyleClass().add("btn-primary");
+
+            hBox.getChildren().addAll(editButton, deleteButton);
 
             editButton.setOnAction(new EventHandler<ActionEvent>() {
 

@@ -42,6 +42,7 @@ public class BarangImplement implements BarangInterface {
 
     @Override
     public void updateBarang(Barang barang, int id) {
+        System.out.println();
         PreparedStatement ps;
         try{
             ps = conn.connect().prepareStatement("update barang set nama_barang = ?, gambar_barang = ?, harga_awal = ?, tenggat_waktu = ?, deskripsi = ? where id_barang = ?");
@@ -50,8 +51,10 @@ public class BarangImplement implements BarangInterface {
             ps.setInt(3, barang.getHargaAwal());
             ps.setString(4, barang.getTenggatWaktu());
             ps.setString(5, barang.getDeskripsi());
-            
             ps.setInt(6, id);
+
+            ps.execute();
+
         }catch(Exception e){
             Logger.getLogger(UserImplement.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -73,14 +76,16 @@ public class BarangImplement implements BarangInterface {
         Barang barang = null;
         conn = new DatabaseConnection();
        try {
-           String sql = "select * from barang where id_barang = ?";
+           String sql = "Select * From barang where id_barang = "+id+"";
            ResultSet rs = conn.connect().createStatement().executeQuery(sql);
-            while (rs.next()) {
+//            while (rs.next()) {
+                System.out.println(rs.getInt(1));
                 barang = new Barang(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6));
-            }
+//            }
        } catch (SQLException e) {
            e.printStackTrace();
        }
+        System.out.println(barang.getNamaBarang());
        return barang;
     }
 

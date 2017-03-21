@@ -98,8 +98,8 @@
                   <TableView id="tablePemenang" fx:id="tableBarang" layoutX="14.0" layoutY="108.0" prefHeight="200.0" prefWidth="734.0">
                     <columns>
                       <TableColumn fx:id="columnNo" prefWidth="51.0" text="No" />
-                      <TableColumn fx:id="columnNama" prefWidth="216.0" text="Nama Barang" />
-                      <TableColumn fx:id="columnAksi" prefWidth="128.0" text="Aksi" />
+                      <TableColumn fx:id="columnNama" prefWidth="265.0" text="Nama Barang" />
+                      <TableColumn fx:id="columnAksi" prefWidth="417.0" text="Aksi" />
                     </columns>
                   </TableView>
                   <Button fx:id="btnTambah" layoutX="17.0" layoutY="67.0" mnemonicParsing="false" text="Tambah">

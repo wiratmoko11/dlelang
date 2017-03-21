@@ -116,23 +116,23 @@ public class AdminBarangController implements Initializable {
     }
 
 
-    private void handleButtonEdit(Event actionEvent){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dlelang/layout/AdminUpdateBarang.fxml"));
-        stage = new Stage();
-        stage.initStyle(StageStyle.UNDECORATED);
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println(root);
-        AdminEditBarangController controller = loader.<AdminEditBarangController>getController();
-        controller.setIdBarang(1);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+//    private void handleButtonEdit(Event actionEvent){
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dlelang/layout/AdminUpdateBarang.fxml"));
+//        stage = new Stage();
+//        stage.initStyle(StageStyle.UNDECORATED);
+//        Parent root = null;
+//        try {
+//            root = loader.load();
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        System.out.println(root);
+//        AdminEditBarangController controller = loader.<AdminEditBarangController>getController();
+//        controller.setIdBarang(1);
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//    }
 
     private void changeScene(Stage stage, String url) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
@@ -147,7 +147,6 @@ public class AdminBarangController implements Initializable {
 
     public void showData() {
         dataBarang = crudBarang.get();
-        System.out.println(dataBarang.size());
         tableBarang.setItems(dataBarang);
         tableBarang.getSelectionModel().clearSelection();
     }
@@ -163,12 +162,12 @@ public class AdminBarangController implements Initializable {
 
             hBox = new HBox();
 
-            detailButton.getStyleClass().add("btn");
-            detailButton.getStyleClass().add("btn-primary");
+            editButton.getStyleClass().add("btn");
+            editButton.getStyleClass().add("btn-primary");
 
             deleteButton.getStyleClass().add("btn");
             deleteButton.getStyleClass().add("btn-errors");
-            hBox.getChildren().addAll(detailButton, deleteButton, editButton);
+            hBox.getChildren().addAll(editButton, deleteButton);
 
             detailButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -194,8 +193,11 @@ public class AdminBarangController implements Initializable {
                         System.out.println(e.getMessage());
                     }
                     AdminEditBarangController controller = loader.getController();
+                    controller.setTxtIdBarang(currentBarang.getIdBarang());
                     controller.setNamaBarang(currentBarang.getNamaBarang());
                     controller.setDeskripsi(currentBarang.getDeskripsi());
+                    controller.setHargaAwal(currentBarang.getHargaAwal());
+
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
