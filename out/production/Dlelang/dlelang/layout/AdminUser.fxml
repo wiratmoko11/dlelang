@@ -1,11 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
-    
+<AnchorPane fx:id="anchorPane" prefHeight="480.0" prefWidth="800.0" stylesheets="@../style/main.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dlelang.controller.AdminUserController">
+    <children>
+        <VBox fx:id="paneMainContainer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <GridPane fx:id="paneToolBar" VBox.vgrow="NEVER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="40.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <HBox alignment="CENTER_LEFT" styleClass="navigation_bar" GridPane.hgrow="NEVER">
+                            <children>
+                                <ImageView pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/ic_menu_white_24dp_1x.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" styleClass="title_bar" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                            <children>
+                                <Label styleClass="title" text="Dashboard Admin" />
+                                <Button fx:id="menuHome" mnemonicParsing="false" styleClass="menu-button" text="Home">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </Button>
+                                <Button fx:id="menuBarang" mnemonicParsing="false" styleClass="menu-button" text="Barang" />
+
+                                <Button fx:id="menuUser" mnemonicParsing="false" styleClass="menu-button" text="User">
+                                    <styleClass>
+                                        <String fx:value="menu-button" />
+                                        <String fx:value="active" />
+                                    </styleClass>
+                                </Button>
+                            </children>
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" styleClass="icons-bar" GridPane.columnIndex="2">
+                            <children>
+                                <ImageView pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/ic_favorite_white_24dp_1x.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/ic_search_white_24dp_1x.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/ic_more_vert_white_24dp_1x.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                        </HBox>
+                    </children>
+                    <styleClass>
+                        <String fx:value="appbar" />
+                        <String fx:value="color-primary" />
+                    </styleClass>
+                </GridPane>
+                <Pane fx:id="paneContentArea" styleClass="panel">
+                    <VBox.margin>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                    </VBox.margin>
+                    <children>
+                        <Label layoutX="17.0" layoutY="24.0" styleClass="panel-heading" text="Data User" />
+                        <TableView id="tablePemenang" fx:id="tableUser" layoutX="14.0" layoutY="108.0" prefHeight="200.0" prefWidth="734.0">
+                            <columns>
+                                <TableColumn fx:id="columnNo" prefWidth="51.0" text="No" />
+                                <TableColumn fx:id="columnUsername" prefWidth="216.0" text="Username" />
+                                <TableColumn fx:id="columnAksi" prefWidth="128.0" text="Aksi" />
+                            </columns>
+                        </TableView>
+                        <Button fx:id="btnTambah" layoutX="17.0" layoutY="67.0" mnemonicParsing="false" text="Tambah">
+                            <styleClass>
+                                <String fx:value="btn" />
+                                <String fx:value="btn-errors" />
+                            </styleClass>
+                        </Button>
+                    </children>
+                </Pane>
+                <GridPane fx:id="paneBottomBar" VBox.vgrow="NEVER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                </GridPane>
+            </children>
+        </VBox>
+        <AnchorPane fx:id="paneMenuNavigationDrawer" styleClass="navigation-drawer" AnchorPane.topAnchor="0.0" />
+        <AnchorPane fx:id="paneMenuToolbar" layoutX="10.0" layoutY="66.0" styleClass="menu-tools" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    </children>
 </AnchorPane>
