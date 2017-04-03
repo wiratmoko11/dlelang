@@ -50,8 +50,12 @@ public class LoginController implements Initializable {
         String password = this.password.getText();
         User result = userImplement.login(username, password);
         if(result != null){
+            if(result.getLevelAkses() == 1){
+                swicthScene("/dlelang/layout/AdminBarang.fxml");
+            }else if(result.getLevelAkses() == 2){
+                swicthScene("/dlelang/layout/UserHome.fxml");
+            }
             System.out.println("Login Benar");
-            swicthScene();
         }else{
             System.out.println("Login Salah");
         }
@@ -61,8 +65,8 @@ public class LoginController implements Initializable {
       doLogin();
     }
     
-    private void swicthScene(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dlelang/layout/AdminHome.fxml"));
+    private void swicthScene(String layout){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(layout));
         Parent root;
         try {
             Stage stage = (Stage) this.loginButton.getScene().getWindow();

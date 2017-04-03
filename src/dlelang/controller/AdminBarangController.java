@@ -115,25 +115,6 @@ public class AdminBarangController implements Initializable {
         stage.show();
     }
 
-
-//    private void handleButtonEdit(Event actionEvent){
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dlelang/layout/AdminUpdateBarang.fxml"));
-//        stage = new Stage();
-//        stage.initStyle(StageStyle.UNDECORATED);
-//        Parent root = null;
-//        try {
-//            root = loader.load();
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        System.out.println(root);
-//        AdminEditBarangController controller = loader.<AdminEditBarangController>getController();
-//        controller.setIdBarang(1);
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//    }
-
     private void changeScene(Stage stage, String url) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
         Parent root;

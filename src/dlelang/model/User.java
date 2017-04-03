@@ -15,6 +15,25 @@ public class User {
     String Password;
     int levelAkses;
 
+    String createdAt;
+    String updatedAt;
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public User(String Username, String Nama, String Password, int levelAkses) {
         this.Username = Username;
         this.Nama = Nama;

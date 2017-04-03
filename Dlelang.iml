@@ -16,5 +16,8 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="controlsfx-8.40.12" level="project" />
+    <orderEntry type="library" name="sqlite-jdbc-3.16.1" level="project" />
+    <orderEntry type="library" name="com.mysql.jdbc_5.1.5" level="project" />
   </component>
 </module>

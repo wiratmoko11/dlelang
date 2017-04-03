@@ -14,12 +14,52 @@ public class Transaksi {
     private int idBarang;
     private String username;
     private int penawaran;
+    private String waktuTransaksi;
+    private String createdAt;
+    private String updatedAt;
 
-    public Transaksi(int idTransaksi, int idBarang, String username, int penawaran) {
+    public void setIdBarang(int idBarang) {
+        this.idBarang = idBarang;
+    }
+
+    public int getPenawaran() {
+        return penawaran;
+    }
+
+    public void setPenawaran(int penawaran) {
+        this.penawaran = penawaran;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Transaksi(int idTransaksi, int idBarang, String username, int penawaran, String waktuTransaksi) {
         this.idTransaksi = idTransaksi;
         this.idBarang = idBarang;
         this.username = username;
         this.penawaran = penawaran;
+        this.waktuTransaksi = waktuTransaksi;
+    }
+
+    public String getWaktuTransaksi() {
+        return waktuTransaksi;
+    }
+
+    public void setWaktuTransaksi(String waktuTransaksi) {
+        this.waktuTransaksi = waktuTransaksi;
     }
 
     public int getIdTransaksi() {
@@ -46,14 +86,8 @@ public class Transaksi {
         this.username = username;
     }
 
-    public int getPenawawaran() {
-        return penawaran;
-    }
 
-    public void setPenawawaran(int penawawaran) {
-        this.penawaran = penawawaran;
-    }
-    
+
     
     
 }

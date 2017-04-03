@@ -50,7 +50,7 @@ public class UserController implements Initializable {
 
     @FXML
     void kirimTransaksi(ActionEvent event) {
-        new TransaksiImplement().insert(new Transaksi(1, 1, "LendisFabri", Integer.parseInt(nilaiTawar.getText())));
+        new TransaksiImplement().insert(new Transaksi(1, 1, "LendisFabri", Integer.parseInt(nilaiTawar.getText()), "2017-03-1 00:00:00"));
     }
 
     @FXML

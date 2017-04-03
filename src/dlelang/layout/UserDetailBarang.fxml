@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="625.0" prefWidth="750.0" stylesheets="@../style/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dlelang.controller.AdminHomeController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="625.0" prefWidth="750.0" stylesheets="@../style/main.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dlelang.controller.AdminHomeController">
     <children>
         <VBox fx:id="paneMainContainer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -69,10 +69,10 @@
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                     </VBox.margin>
                     <children>
-                        <ImageView fitHeight="193.0" fitWidth="190.0" layoutX="36.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../../../../../../../../home/lendis/Pictures/g4372.png" />
-                            </image>
+                        <ImageView fitHeight="182.0" fitWidth="225.0" layoutX="36.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/placeholder.png" />
+                     </image>
                         </ImageView>
                   <TextArea layoutX="36.0" layoutY="240.0" prefHeight="152.0" prefWidth="643.0" styleClass="keterangan" stylesheets="@../style/main.css" />
                   <Pane layoutX="278.0" layoutY="22.0" prefHeight="200.0" prefWidth="400.0" style="-fx-border-style: solid; -fx-border-color: #bdc3c7;" styleClass="data-pane" stylesheets="@../style/main.css">

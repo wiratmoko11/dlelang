@@ -20,6 +20,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,9 +53,12 @@ public class AdminTambahBarangController implements Initializable {
         closeStage(actionEvent);
     }
     private void handleSubmitButton(Event actionEvent){
+        Date date=new Date();
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String now = format.format((date));
         crudBarang = new BarangImplement();
-        Barang barang = new Barang(0, namaBarang.getText(), file.getAbsolutePath().toString(), Integer.parseInt(hargaAwal.getText()), "2017-02-11 20:20:20", deskripsi.getText());
-        crudBarang.insertBarang(barang);
+        Barang barang = new Barang(0, namaBarang.getText(), "", Integer.parseInt(hargaAwal.getText()), "2017-02-11 20:20:20", deskripsi.getText(), now, now);
+        crudBarang.sendBarang(barang);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/dlelang/layout/AdminBarang.fxml"));
         try {
@@ -63,7 +68,6 @@ public class AdminTambahBarangController implements Initializable {
         }
         AdminBarangController controller = loader.getController();
         controller.showData();
-
         closeStage(actionEvent);
     }
 

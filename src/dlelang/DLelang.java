@@ -26,7 +26,7 @@ public class DLelang extends Application {
     
     @Override
     public void start(Stage stage) throws IOException{
-        stage.setTitle(("Form Login"));
+        stage.setTitle(("Dlelang - Aplikasi Lelang Barang Antik"));
         Parent root = FXMLLoader.load(getClass().getResource("layout/Login.fxml"));
         Scene scene = new Scene(root, 840, 480);
         stage.setScene(scene);

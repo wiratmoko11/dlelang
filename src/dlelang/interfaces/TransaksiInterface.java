@@ -15,4 +15,5 @@ import java.util.List;
 public interface TransaksiInterface {
     public void insert(Transaksi transaksi);
     public List<Transaksi> get();
+    public List<Transaksi> getPemenang();
 }
