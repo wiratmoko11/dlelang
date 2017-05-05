@@ -7,6 +7,8 @@ package dlelang;
 
 import dlelang.Utility.DatabaseConnection;
 import java.io.IOException;
+
+import dlelang.model.Barang;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
@@ -31,7 +33,6 @@ public class DLelang extends Application {
         Scene scene = new Scene(root, 840, 480);
         stage.setScene(scene);
         stage.show();
-        
     }
 
     /**

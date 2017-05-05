@@ -156,6 +156,16 @@ public class AdminBarangController implements Initializable {
                     System.out.println("jasdasdsakdhaskdjhkjsahdk");
                 }
             });
+
+            deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    Barang currentBarang = TableBarangCell.this.getTableView().getItems().get(TableBarangCell.this.getIndex());
+                    crudBarang.deleteBarang(currentBarang.getIdBarang());
+                    showData();
+                }
+            });
+
             editButton.setOnAction(new EventHandler<ActionEvent>() {
 
                 BarangImplement crudBarang = new BarangImplement();

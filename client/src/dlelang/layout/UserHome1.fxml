@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.GridView?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="625.0" prefWidth="750.0" stylesheets="@../style/main.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dlelang.controller.UserHomeController">
+   <children>
+      <VBox fx:id="paneMainContainer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <GridPane fx:id="paneToolBar" VBox.vgrow="NEVER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="40.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <HBox alignment="CENTER_LEFT" styleClass="navigation_bar" GridPane.hgrow="NEVER">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="title_bar" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="130.0" styleClass="title" text="Dashboard" />
+                        <Button fx:id="menuHome" mnemonicParsing="false" prefHeight="62.0" prefWidth="58.0" text="Home">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="menu-button" />
+                              <String fx:value="active" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" styleClass="icons-bar" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </HBox>
+               </children>
+               <styleClass>
+                  <String fx:value="appbar" />
+                  <String fx:value="color-primary" />
+               </styleClass>
+            </GridPane>
+            <Pane fx:id="paneContentArea" styleClass="panel">
+               <VBox.margin>
+                  <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+               </VBox.margin>
+               <children>
+                  <GridView fx:id="gridViewBarang" prefHeight="300.0" prefWidth="700.0" />
+               </children>
+            </Pane>
+
+         </children>
+      </VBox>
+      <AnchorPane fx:id="paneMenuNavigationDrawer" styleClass="navigation-drawer" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="paneMenuToolbar" layoutX="10.0" layoutY="66.0" styleClass="menu-tools" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   </children>
+</AnchorPane>

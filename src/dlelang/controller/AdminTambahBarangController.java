@@ -1,7 +1,9 @@
 package dlelang.controller;
 
+import dlelang.Listener;
 import dlelang.implement.BarangImplement;
 import dlelang.model.Barang;
+import dlelang.model.Message;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -58,7 +60,15 @@ public class AdminTambahBarangController implements Initializable {
         String now = format.format((date));
         crudBarang = new BarangImplement();
         Barang barang = new Barang(0, namaBarang.getText(), "", Integer.parseInt(hargaAwal.getText()), "2017-02-11 20:20:20", deskripsi.getText(), now, now);
-        crudBarang.sendBarang(barang);
+//        crudBarang.sendBarang(barang);
+
+        // Send to Socket Barang yang baru ditambahkan
+        Message msg = new Message(barang, 1,1, "wiratmoko11");
+        try {
+            Listener.sendMessage(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/dlelang/layout/AdminBarang.fxml"));
         try {

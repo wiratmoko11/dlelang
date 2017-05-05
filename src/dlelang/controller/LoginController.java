@@ -5,7 +5,9 @@
  */
 package dlelang.controller;
 
+import dlelang.Listener;
 import dlelang.implement.UserImplement;
+import dlelang.model.Barang;
 import dlelang.model.User;
 import java.io.IOException;
 import java.net.URL;
@@ -42,9 +44,24 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loginButton.setOnAction(this::handleLogin);
+
+
     }
-    
+
+
+    void testSocket() throws IOException {
+
+    }
+
     private void doLogin(){
+
+        Listener listener = new Listener("127.0.0.1", 9100);
+        Thread x = new Thread(listener);
+        x.start();
+
+        Barang barang = new Barang(413, "HP", null, 200000, "2017-22-06", "HP Baru", "2017-30-05 10:10:20", "2017-30-05 10:10:20");
+
+
         userImplement = new UserImplement();
         String username = this.username.getText();
         String password = this.password.getText();
