@@ -42,7 +42,6 @@ public class AdminHomeController implements Initializable {
         menuHome.setOnAction(this::handleMenuHome);
         menuBarang.setOnAction(this::handleMenuBarang);
         menuUser.setOnAction(this::handleMenuUser);
-        
     }
     
     private void handleMenuHome(Event actionEvent){

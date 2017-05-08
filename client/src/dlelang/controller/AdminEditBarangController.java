@@ -1,5 +1,6 @@
 package dlelang.controller;
 
+import dlelang.Listener;
 import dlelang.implement.BarangImplement;
 import dlelang.model.Barang;
 import javafx.event.Event;
@@ -21,6 +22,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import dlelang.model.Message;
+
 
 /**
  * Created by Ultrabook on 3/15/2017.
@@ -59,7 +62,14 @@ public class AdminEditBarangController implements Initializable {
             this.barang.setGambarBarang(file.getAbsolutePath().toString());
         }
 
-        crudBarang.updateBarang(this.barang, Integer.parseInt(this.txtIdBarang.getText().toString()));
+//        crudBarang.updateBarang(this.barang, Integer.parseInt(this.txtIdBarang.getText().toString()));
+        Message msg = new Message(barang, 1, 2, "wiratmoko11");
+
+        try {
+            Listener.sendMessage(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Update Tabel Barang
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/dlelang/layout/AdminBarang.fxml"));
@@ -69,7 +79,8 @@ public class AdminEditBarangController implements Initializable {
             e.printStackTrace();
         }
         AdminBarangController controller = loader.getController();
-        controller.showData();
+
+//        controller.showData();
 
         closeStage((Node)actionEvent.getSource());
     }

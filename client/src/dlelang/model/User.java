@@ -5,11 +5,13 @@
  */
 package dlelang.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ultrabook
  */
-public class User {
+public class User implements Serializable {
     String Username;
     String Nama;
     String Password;

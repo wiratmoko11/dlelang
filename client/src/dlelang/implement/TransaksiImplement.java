@@ -32,6 +32,7 @@ public class TransaksiImplement implements TransaksiInterface {
     MysqlConnection mysqlConn;
     @Override
     public void insert(Transaksi transaksi) {
+        conn = new DatabaseConnection();
         Date date=new Date();
         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String now = format.format((date));
@@ -60,7 +61,7 @@ public class TransaksiImplement implements TransaksiInterface {
     public ObservableList<Transaksi> get() {
 
         //Fetch Data
-        fetchTransaksi(getMysql());
+        //fetchTransaksi(getMysql());
 
         ObservableList listData = FXCollections.observableArrayList();
         try {
@@ -82,6 +83,22 @@ public class TransaksiImplement implements TransaksiInterface {
         try {
             String sql = "Select * From transaksi";
             ResultSet rs = mysqlConn.connect().createStatement().executeQuery(sql);
+            while (rs.next()) {
+                Transaksi transaksi = new Transaksi(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5));
+                listData.add(transaksi);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(BarangImplement.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return listData;
+    }
+
+    public ObservableList<Transaksi> getByIdBarang(String idBarang){
+        conn = new DatabaseConnection();
+        ObservableList listData = FXCollections.observableArrayList();
+        try {
+            String sql = "Select * From transaksi where id_barang = "+idBarang+"";
+            ResultSet rs = conn.connect().createStatement().executeQuery(sql);
             while (rs.next()) {
                 Transaksi transaksi = new Transaksi(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5));
                 listData.add(transaksi);

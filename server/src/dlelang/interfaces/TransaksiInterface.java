@@ -14,7 +14,7 @@ import java.util.List;
  * @author Ultrabook
  */
 public interface TransaksiInterface {
-    public void insert(Transaksi transaksi);
+    public int insert(Transaksi transaksi);
     public List<Transaksi> get();
     public List<Transaksi> getPemenang();
 }

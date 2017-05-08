@@ -5,16 +5,23 @@
  */
 package dlelang.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dlelang.Listener;
+import dlelang.implement.BarangImplement;
 import dlelang.implement.TransaksiImplement;
+import dlelang.model.Barang;
 import dlelang.model.Transaksi;
+import dlelang.model.Message;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 
 /**
@@ -24,41 +31,85 @@ import javafx.scene.layout.*;
  */
 public class UserController implements Initializable {
 
-    @FXML
-    private AnchorPane anchorPane;
-
-    @FXML
-    private VBox paneMainContainer;
-
-    @FXML
-    private GridPane paneToolBar;
 
     @FXML
     private Button menuHome;
 
     @FXML
-    private Pane paneContentArea;
+    public TextField txtIdBarang;
 
     @FXML
-    private GridPane paneBottomBar;
+    TableView<Transaksi> tblTransaksi;
 
     @FXML
-    private AnchorPane paneMenuNavigationDrawer;
+    Label lblNamaBarang, lblHargaAwal, lblBatasWaktu;
 
     @FXML
-    private AnchorPane paneMenuToolbar;
+    TableColumn<Transaksi, String> colNama;
 
     @FXML
-    void kirimTransaksi(ActionEvent event) {
-        new TransaksiImplement().insert(new Transaksi(1, 1, "LendisFabri", Integer.parseInt(nilaiTawar.getText()), "2017-03-1 00:00:00"));
-    }
+    TableColumn<Transaksi, String> colPenawaran;
 
     @FXML
-    private TextField nilaiTawar;
+    TextField nilaiTawar;
+
+    @FXML
+    Button btnTransaksi, btnRefresh;
+
+    ObservableList<Transaksi> dataTransaksi;
+    TransaksiImplement crudTransaksi = new TransaksiImplement();
+    BarangImplement crudBarang = new BarangImplement();
+    String idBarang = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        colNama.setCellValueFactory(new PropertyValueFactory<Transaksi, String>("username"));
+        colPenawaran.setCellValueFactory(new PropertyValueFactory<Transaksi, String>("penawaran"));
+        btnTransaksi.setOnAction(this::kirimTransaksi);
+        btnRefresh.setOnAction(this::refresh);
 
+        showData();
+        showDataBarang();
+
+
+    }
+
+    public void refresh(ActionEvent event){
+        showData();
+    }
+
+    public  void showDataBarang(){
+        Platform.runLater(()->{
+            Barang selectedBarang = crudBarang.getBarangById(Integer.parseInt(txtIdBarang.getText()));
+
+            lblNamaBarang.setText(selectedBarang.getNamaBarang());
+            lblHargaAwal.setText(""+selectedBarang.getHargaAwal());
+            lblBatasWaktu.setText(selectedBarang.getTenggatWaktu());
+
+        });
+    }
+
+    public void showData() {
+        Platform.runLater(()->{
+            dataTransaksi = crudTransaksi.getByIdBarang(txtIdBarang.getText());
+            tblTransaksi.setItems(dataTransaksi);
+            tblTransaksi.getSelectionModel().clearSelection();
+            System.out.println("Data Ditampilkan");
+        });
+    }
+
+    public void kirimTransaksi(ActionEvent event){
+        System.out.println("Nilai Tawar = "+nilaiTawar.getText().toString());
+        System.out.println("ID Barang Aksi = "+idBarang);
+        Transaksi transaksi = new Transaksi(1, Integer.parseInt(txtIdBarang.getText().toString()), "wiratmoko11", Integer.parseInt(nilaiTawar.getText().toString()), "2017-03-1 00:00:00");
+        Message msg = new Message(transaksi, 2, 1, "wiratmoko11");
+        try {
+            Listener.sendMessage(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        nilaiTawar.setText("");
+        showData();
     }
 
 }

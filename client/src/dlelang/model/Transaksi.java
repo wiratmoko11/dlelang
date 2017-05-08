@@ -5,11 +5,13 @@
  */
 package dlelang.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ultrabook
  */
-public class Transaksi {
+public class Transaksi implements Serializable {
     private int idTransaksi;
     private int idBarang;
     private String username;

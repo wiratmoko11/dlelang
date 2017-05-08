@@ -4,6 +4,8 @@ import dlelang.controller.AdminBarangController;
 import dlelang.controller.AdminUserController;
 import dlelang.controller.UserController;
 import dlelang.implement.BarangImplement;
+import dlelang.implement.TransaksiImplement;
+import dlelang.implement.UserImplement;
 import dlelang.model.Barang;
 import dlelang.model.Message;
 import dlelang.model.Transaksi;
@@ -46,6 +48,8 @@ public class Listener implements Runnable {
     public void run() {
         System.out.println("Listener Socket");
         BarangImplement crudBarang = new BarangImplement();
+        TransaksiImplement crudTransaksi = new TransaksiImplement();
+        UserImplement crudUser = new UserImplement();
         try {
             socket = new Socket(hostname, port);
 
@@ -68,28 +72,35 @@ public class Listener implements Runnable {
                 if(message != null){
                     System.out.println("Found Message");
                     switch (message.getMessageType()){
+                        // 1 = Barang, 2 = Transaksi, 3 = User
                         case 1:
+                            // Jika Tambah Barang
                             if(message.getMessageAct() == 1){
                                 crudBarang.insertBarang((Barang) message.getMessageContent());
+                                // Jika Update
                             }else if(message.getMessageAct() == 2){
                                 crudBarang.updateBarang((Barang) message.getMessageContent(), ((Barang) message.getMessageContent()).getIdBarang());
+                            //Jika Delete
                             }else if(message.getMessageAct() == 3){
                                 crudBarang.deleteBarang(message.getObjectID());
                             }
                             System.out.println(adminBarangController);
 
-                            adminBarangController.showData(crudBarang.get());
+                            adminBarangController.showData();
                             break;
                         case 2:
+                            //Jika Tambah
                             if(message.getMessageAct() == 1){
-
+                                System.out.println("Insert data transaksi");
+                                crudTransaksi.insert((Transaksi) message.getMessageContent());
                             }else if(message.getMessageAct() == 2){
 
                             }
                             break;
                         case 3:
+                            //Jika Tambah
                             if(message.getMessageAct() == 1){
-
+                                crudUser.insertUser((User) message.getMessageContent());
                             }else if(message.getMessageAct() == 2){
 
                             }
@@ -105,14 +116,6 @@ public class Listener implements Runnable {
 
     public static void sendMessage(Message msg) throws IOException {
         oos.writeObject(msg);
-        oos.flush();
-    }
-    public void sendDataTransaksi(Transaksi transaksi) throws IOException {
-        oos.writeObject(transaksi);
-        oos.flush();
-    }
-    public void sendDataUser(User user) throws IOException{
-        oos.writeObject(user);
         oos.flush();
     }
 }

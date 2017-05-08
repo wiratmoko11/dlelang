@@ -108,6 +108,7 @@
                         <String fx:value="btn-errors" />
                      </styleClass>
                   </Button>
+                  <Button fx:id="btnRefresh" layoutX="96.0" layoutY="70.0" mnemonicParsing="false" text="Refresh" />
                </children>
             </Pane>
             <GridPane fx:id="paneBottomBar" VBox.vgrow="NEVER">

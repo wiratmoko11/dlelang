@@ -134,6 +134,29 @@ public class BarangImplement implements BarangInterface {
         return listData;
     }
 
+    public ObservableList getAktifBarang(){
+
+        Date date=new Date();
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String now = format.format((date));
+
+        conn = new DatabaseConnection();
+        ObservableList listData = FXCollections.observableArrayList();
+        try{
+            String sql = "SELECT * FROM barang WHERE tenggat_waktu > '"+now+"'";
+
+            ResultSet rs = conn.connect().createStatement().executeQuery(sql);
+            while (rs.next()) {
+                Barang m = new Barang(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
+                listData.add(m);
+            }
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return listData;
+    }
+
     public ObservableList<Barang> mysqlGet(){
         mysqlConn = new MysqlConnection();
         ObservableList listData = FXCollections.observableArrayList();

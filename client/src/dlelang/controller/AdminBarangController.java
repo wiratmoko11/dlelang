@@ -5,8 +5,10 @@
  */
 package dlelang.controller;
 
+import dlelang.Listener;
 import dlelang.implement.BarangImplement;
 import dlelang.model.Barang;
+import dlelang.model.Message;
 
 import java.io.IOException;
 import java.net.URL;
@@ -53,7 +55,7 @@ public class AdminBarangController extends Thread implements Initializable {
     @FXML
     public Button menuBarang;
     @FXML
-    public Button btnTambah;
+    public Button btnTambah, btnRefresh;
     @FXML
     public TableView<Barang> tableBarang;
     @FXML
@@ -84,6 +86,7 @@ public class AdminBarangController extends Thread implements Initializable {
         menuBarang.setOnAction(this::handleMenuBarang);
         menuUser.setOnAction(this::handleMenuUser);
         btnTambah.setOnAction(this::handleButtonTambah);
+        btnRefresh.setOnAction(this::handleButtonRefresh);
 
         showData();
     }
@@ -101,6 +104,10 @@ public class AdminBarangController extends Thread implements Initializable {
     private void handleMenuUser(Event actionEvent) {
         stage = (Stage) this.anchorPane.getScene().getWindow();
         changeScene(this.stage, "/dlelang/layout/AdminUser.fxml");
+    }
+
+    private void handleButtonRefresh(Event acEvent){
+        showData();
     }
 
     private void handleButtonTambah(Event actionEvent) {
@@ -131,33 +138,13 @@ public class AdminBarangController extends Thread implements Initializable {
     }
 
     public void showData() {
-        new Thread(){
-            @Override
-            public void run() {
-                dataBarang = crudBarang.get();
-                tableBarang.setItems(null);
-                tableBarang.setItems(dataBarang);
-                tableBarang.getSelectionModel().clearSelection();
-                tableBarang.refresh();
-                System.out.println("Update Data");
-            }
-        }.start();
-
+        Platform.runLater(() -> {
+            dataBarang = crudBarang.get();
+            tableBarang.setItems(dataBarang);
+            tableBarang.getSelectionModel().clearSelection();
+            System.out.println("Update Data");
+        });
     }
-    public void showData(ObservableList dataBarang) {
-        new Thread(){
-            @Override
-            public void run() {
-                ObservableList data = FXCollections.observableList(dataBarang);
-                tableBarang.setItems(data);
-                tableBarang.getSelectionModel().clearSelection();
-                tableBarang.refresh();
-                System.out.println("Update Data");
-            }
-        }.start();
-
-    }
-
 
 
     private class TableBarangCell extends TableCell<Barang, Boolean> {
@@ -189,7 +176,13 @@ public class AdminBarangController extends Thread implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     Barang currentBarang = TableBarangCell.this.getTableView().getItems().get(TableBarangCell.this.getIndex());
-                    crudBarang.deleteBarang(currentBarang.getIdBarang());
+//                    crudBarang.deleteBarang(currentBarang.getIdBarang());
+                    Message msg = new Message(currentBarang, 1, 3, "wiratmoko11");
+                    try {
+                        Listener.sendMessage(msg);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     showData();
                 }
             });

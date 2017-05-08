@@ -1,8 +1,12 @@
 package dlelang;
 
 import dlelang.implement.BarangImplement;
+import dlelang.implement.TransaksiImplement;
+import dlelang.implement.UserImplement;
 import dlelang.model.Barang;
 import dlelang.model.Message;
+import dlelang.model.Transaksi;
+import dlelang.model.User;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -34,6 +38,8 @@ public class Server {
     private static class Handler extends Thread{
         private Socket socket;
         private BarangImplement crudBarang;
+        private TransaksiImplement crudTransaksi;
+        private UserImplement crudUser;
         public Handler(Socket socket) throws IOException {
             this.socket = socket;
         }
@@ -50,7 +56,7 @@ public class Server {
                     while (socket.isConnected()){
                         Message message = (Message) input.readObject();
                         if(message != null){
-
+                            System.out.println("Ada Pesan");
                             switch (message.getMessageType()){
                                 case 1:
                                     crudBarang = new BarangImplement();
@@ -66,14 +72,41 @@ public class Server {
                                         Barang barang = (Barang) message.getMessageContent();
                                         crudBarang.updateBarang(barang, 1);
                                         send(message);
+                                    }else if(message.getMessageAct() == 3){
+                                        crudBarang.deleteBarang(message.getObjectID());
+                                        send(message);
                                     }
                                     break;
+                                //Transaksi
                                 case 2:
+                                    System.out.println("Pesan Type = "+message.getMessageType());
+                                    System.out.println("Aksi Pesan = "+message.getMessageAct());
+                                    crudTransaksi = new TransaksiImplement();
+                                    switch (message.getMessageAct()){
+                                        //Insert Transaksi
+                                        case 1:
+                                            System.out.println("Insert Data Transaksi");
+                                            Transaksi transaksi = (Transaksi) message.getMessageContent();
+                                            int idTransaksi = crudTransaksi.insert(transaksi);
+                                            ((Transaksi)message.getMessageContent()).setIdTransaksi(idTransaksi);
+                                            send(message);
+                                            break;
+                                    }
                                     break;
+                                //User
                                 case 3:
+                                    switch (message.getMessageType()){
+                                        case 1:
+                                            User user = (User) message.getMessageContent();
+                                            crudUser.insertUser(user);
+                                            send(message);
+                                            break;
+                                    }
                                     break;
                             }
 
+                        }else {
+                            closeConnections();
                         }
                     }
             } catch (IOException e) {

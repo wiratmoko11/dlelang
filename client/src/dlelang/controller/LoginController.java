@@ -64,7 +64,7 @@ public class LoginController implements Initializable {
         }
         AdminBarangController controller = loader.getController();
 
-        Listener listener = new Listener("127.0.0.1", 9100, controller);
+        Listener listener = new Listener("127.0.0.1", 9100);
         Thread x = new Thread(listener);
         x.start();
 
@@ -76,7 +76,7 @@ public class LoginController implements Initializable {
             if(result.getLevelAkses() == 1){
                 swicthScene("/dlelang/layout/AdminBarang.fxml");
             }else if(result.getLevelAkses() == 2){
-                swicthScene("/dlelang/layout/UserHome.fxml");
+                swicthScene("/dlelang/layout/UserHomeNew.fxml");
             }
             System.out.println("Login Benar");
         }else{
